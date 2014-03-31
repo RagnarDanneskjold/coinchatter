@@ -8,7 +8,6 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
     var callBlockchainData = function(transactionIndex){
         var url = 'https://blockchain.info/rawtx/'+transactionIndex+'?format=json&scripts=true&cors=true'
         $http.get(url).success(function(data){
-            console.log(data);
             glob = data;
             globalArrayOfTransactions.push({"id": globalArrayOfTransactions.length,
                 "hex": BlockToString(data),
@@ -45,7 +44,6 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
         var btcAmount = 0;
         for (var i = 0; i < transaction["out"].length; i++){ //iterate over each output script
             btcAmount += transaction['out'][i]['value'];  //value is in Satoshi. 
-            // console.log(transaction['out'][i]['value']);
         }
         btcAmount = btcAmount / 100000000; //100,000,000 Satoshi = 1 BTC. 
         return btcAmount;
@@ -113,7 +111,6 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
      }
 
      function onOpen(evt) {
-         console.log("WebSocket connected.")
          doSend('{"op":"ping_tx"}'); //Most recent transaction.
      }
 
@@ -127,17 +124,14 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
      }
 
      function onClose(evt) {
-         console.log("WebSocket disconnected.");
      }
 
      function onMessage(evt) {
-         console.log("Websocket Response:");
          var transactionHash = jQuery.parseJSON(evt['data'])['x']['hash'];
          callBlockchainData(transactionHash);
      }
 
      function doSend(message) {
-         console.log("Websocket sent: " + message);
          websocket.send(message);
      }
 }); //END OF ANGULAR CONTROLLER
