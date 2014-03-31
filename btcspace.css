@@ -1,0 +1,142 @@
+body {
+	padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+
+h1, h2 {text-align: center;
+font-family: 'Roboto', sans-serif;}
+
+h2 {font-weight: 300;}
+
+h3 {font-family: 'Roboto', sans-serif;}
+
+button {color: black;}
+
+.content {text-align: center;}
+
+
+.col-header {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+}
+
+.col-header div {
+    float: left;
+    word-wrap: break-word;
+    padding: 0 8px;
+}
+
+.metadata {
+    margin-left: calc(30% - 40px);
+}
+
+.transaction-ID {
+    width: 30%;
+    word-wrap: break-word;
+    display: inline-block;
+    text-align: left;
+    border-right: 2px solid #979797;
+}
+
+.transaction-info {
+    text-align: left;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.transactions {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.transactions li {
+    background: #404040;
+}
+
+.transactions li div {
+    padding: 3px;
+}
+
+section {
+    border: 2px solid #979797;
+    text-align: left;
+}
+
+input {
+    color: black;
+    outline: solid black thin;
+    background: #f9f9f9;
+}
+
+::-webkit-input-placeholder {
+    color: #bababa;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: #bababa;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #bababa;
+}
+
+:-ms-input-placeholder {
+    color: #bababa;
+}
+
+.controls {
+    text-align: center;
+}
+
+.controls h3 {
+    text-align: center;
+}
+
+.explanation {
+    text-align: left;
+    color: grey;
+}
+
+input[type='checkbox'] {
+    margin-top: 20px;
+}
+
+.active {
+    height: 60px;
+    background: #00a379;
+}
+
+.intro {
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+}
+
+.readmore {
+    font-family: 'Roboto', sans-serif; 
+    text-align: center;
+    font-weight: 300;
+}
+
+
+.donations {
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif; 
+    color: #c3c3c3;
+}
+
+@media (min-width: 992px) {
+    .controls {
+        text-align: left;
+    }
+}
+
+
+
+	
