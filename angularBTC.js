@@ -140,4 +140,22 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
          console.log("Websocket sent: " + message);
          websocket.send(message);
      }
+
+
+     $scope.options = [
+        {label: 'Newest on bottom', value : false},
+        {label: 'Newest on top', value: true}
+        ]
+    $scope.reverseOrder = $scope.options[0]
+
 }); //END OF ANGULAR CONTROLLER
+// Reverses the ordering of new items
+btcSpaceApp.filter('reverse', function() {
+  return function(items, truthVal) { 
+    console.log(truthVal.value);
+    if (truthVal.value){
+        return items.slice().reverse();
+    }
+    else {return items;}
+    }
+});
