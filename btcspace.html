@@ -36,6 +36,9 @@
             <li ng-show="ticker" ng-click='stopUpdate()' class='active'><a href=""> <i class="fa fa-stop"></i>Stop Ticker</a></li>
             
           </ul>
+          <ul class='nav navbar-nav pull-right'>
+            <li class='contact-us'><a href='contact.html'>Contact Us</a></li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -45,11 +48,12 @@
       <p class="intro">In Bitcoin 0.9 OP_RETURN became an accepted part of Bitcoin transactions, allowing 80 bytes of data to be used for... whatever. OP_RETURN is still being implemented and the effects are yet to be seen. This site isn't any old Bitcoin transaction ticker, it has an eye to the metadata and a pulse on Bitcoin's future.</p>
       <p class="readmore"><a href='https://bitcoinfoundation.org/blog/?p=290'>Read more about OP_RETURN.</a></p>
       <p class="donations">Donatations appreciated: j1LDxWVyq3JU1vfeNZzMYFzBGAvFaZqXBBc</p>
+      <p ng-click='loadCoinSecretsTX()'>Parse python scraper output (don't worry I'll remove this)</p>
     </div>
     <div class="content" ng-init="init()">
       <div class="row">
-        <h3>Filters</h3> 
         <div class="controls col-md-2 col-md-offset-5 col-s-3">  
+          <h3>Filters</h3> 
           Search all fields: <input type="text" name="filterText" ng-model="filterText" placeholder="Filter Text"><br>
           <input type="checkbox" ng-model='filterOP_RETURN.OP_RETURN'>OP_RETURN</input><br>
           <select ng-model='reverseOrder' ng-options="opt as opt.label for opt in options">

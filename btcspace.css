@@ -4,16 +4,68 @@ body {
 }
 
 
-h1, h2 {text-align: center;
+.jumbotron h1, .jumbotron h2 {text-align: center;
 font-family: 'Roboto', sans-serif;}
 
 h2 {font-weight: 300;}
 
 h3 {font-family: 'Roboto', sans-serif;}
 
+<<<<<<< HEAD
 button {color: black;}
 
 .content {text-align: center;}
+=======
+
+h4 {
+    font-family: 'Lato';
+    font-weight: 100;
+}
+
+
+
+.content {text-align: center;}
+
+.intro {
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+}
+
+.readmore {
+    font-family: 'Roboto', sans-serif; 
+    text-align: center;
+    font-weight: 300;
+}
+
+
+.donations {
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif; 
+    color: #c3c3c3;
+}
+
+
+/*Contact Page*/
+.contact-icons {
+    font-size: 5rem;
+    display: block;
+    text-align: center;
+}
+
+.contact-icons i {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+
+
+/*
+===============
+$Transaction styling
+===============
+*/
+>>>>>>> d60d1f7... Tided up Python package, removed dependencies.  Also some changes to contact page.
 
 
 .col-header {
@@ -136,3 +188,5 @@ input[type='checkbox'] {
         text-align: left;
     }
 }
+
+

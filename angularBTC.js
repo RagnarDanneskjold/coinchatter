@@ -1,5 +1,6 @@
 globalArrayOfTransactions = [];
 glob = '' //Global object bound to last object returned by the callBlockChainData.  Used for dev/debugging.
+tempglob = [];
 
 var btcSpaceApp = angular.module('btcSpaceApp', ['ngAnimate']);
 
@@ -135,6 +136,37 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
          websocket.send(message);
      }
 
+<<<<<<< HEAD
+=======
+      $scope.loadCoinSecretsTX = function(){
+       /* This fn should not be called automatically.  Instead, it should be MANUALLY RUN whenever updating
+        the input from CoinSecrets.org after running the Python script.
+        This creates a JSON file which should then be manually saved and uploaded to persistently store the data.
+        Takes the output from coinsecretscraper.py
+
+        BlockChain.info only allows 700 requests every 5min.  There are ~800 entries in this file. 
+        */
+        
+        jQuery.get('http://acoard.com/projects/work/scraper/tx.txt', function(data){
+        }).success(function(data) {
+            TXs = data.split('\n');
+            var counter = 0;
+            var arrOP_RETURN = []; //output array
+            for (var i = 0; i < TXs.length; i++){
+                //Since Blockchain.info limits requests (700 per 5 min), have to limit rate of calls
+                setTimeout(function(){ 
+                    arrOP_RETURN.push(callBlockchainData(TXs[counter])); 
+                    counter++;
+                    console.log("Loop: " + counter + " of " + TXs.length);},
+
+                1000 * i + 1) //By multiplying the timeout by the index it avoids the case of ALL of the calls just being in 1 second.
+            }
+            console.log(JSON.stringify(arrOP_RETURN));
+            tempglob = arrOP_RETURN;
+        });
+     }
+
+>>>>>>> d60d1f7... Tided up Python package, removed dependencies.  Also some changes to contact page.
 
      $scope.options = [
         {label: 'Newest on bottom', value : false},
