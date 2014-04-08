@@ -2,9 +2,9 @@ globalArrayOfTransactions = [];
 glob = '' //Global object bound to last object returned by the callBlockChainData.  Used for dev/debugging.
 tempglob = [];
 
-var btcSpaceApp = angular.module('btcSpaceApp', ['ngAnimate']);
+var coinChatterApp = angular.module('coinChatterApp', ['ngAnimate']);
 
-btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
+coinChatterApp.controller('coinChatterCtrl', function($scope, $http){
     $scope.transactions = globalArrayOfTransactions;
     var callBlockchainData = function(transactionIndex){
         var url = 'https://blockchain.info/rawtx/'+transactionIndex+'?format=json&scripts=true&cors=true'
@@ -135,9 +135,6 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
      function doSend(message) {
          websocket.send(message);
      }
-
-<<<<<<< HEAD
-=======
       $scope.loadCoinSecretsTX = function(){
        /* This fn should not be called automatically.  Instead, it should be MANUALLY RUN whenever updating
         the input from CoinSecrets.org after running the Python script.
@@ -155,9 +152,10 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
             for (var i = 0; i < TXs.length; i++){
                 //Since Blockchain.info limits requests (700 per 5 min), have to limit rate of calls
                 setTimeout(function(){ 
-                    arrOP_RETURN.push(callBlockchainData(TXs[counter])); 
+                    arrOP_RETURN.push(callBlockchainData(TXs[counter])); //Use counter instead of i because it increments within settimeout
                     counter++;
-                    console.log("Loop: " + counter + " of " + TXs.length);},
+                    // console.log("Loop: " + counter + " of " + TXs.length);
+                },
 
                 1000 * i + 1) //By multiplying the timeout by the index it avoids the case of ALL of the calls just being in 1 second.
             }
@@ -165,9 +163,6 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
             tempglob = arrOP_RETURN;
         });
      }
-
->>>>>>> d60d1f7... Tided up Python package, removed dependencies.  Also some changes to contact page.
-
      $scope.options = [
         {label: 'Newest on bottom', value : false},
         {label: 'Newest on top', value: true}
@@ -176,9 +171,8 @@ btcSpaceApp.controller('btcSpaceCtrl', function($scope, $http){
 
 }); //END OF ANGULAR CONTROLLER
 // Reverses the ordering of new items
-btcSpaceApp.filter('reverse', function() {
+coinChatterApp.filter('reverse', function() {
   return function(items, truthVal) { 
-    console.log(truthVal.value);
     if (truthVal.value){
         return items.slice().reverse();
     }

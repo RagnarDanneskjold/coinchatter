@@ -1,7 +1,7 @@
 body {
 	padding-top: 90px;
     padding-bottom: 90px;
-    background: #efefef;
+    background: #f6f6f6;
     color: black;   
 }
 
@@ -12,6 +12,7 @@ font-family: 'Roboto', sans-serif;}
     background: white;   
     color: black;
     padding-top: 0px;
+    border: 1px solid grey;
 }
 
 h2 {font-weight: 300;}
@@ -27,13 +28,12 @@ h4 {
     font-weight: 100;
 }
 
-
-
 .content {text-align: center;}
 
-.intro {
+
+body > div > div.jumbotron > p.intro {
     font-family: 'Lato', sans-serif;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .readmore {
@@ -44,10 +44,12 @@ h4 {
 
 
 .donations {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: center;
-    font-family: 'Roboto', sans-serif; 
-    color: #c3c3c3;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    color: black;
 }
 
 
@@ -168,24 +170,12 @@ input[type='checkbox'] {
     background: #33c1f3;
 }
 
-.intro {
-    font-family: 'Lato', sans-serif;
-    font-weight: 100;
-}
-
 .readmore {
     font-family: 'Roboto', sans-serif; 
     text-align: center;
     font-weight: 300;
 }
 
-
-.donations {
-    font-size: 1.5rem;
-    text-align: center;
-    font-family: 'Roboto', sans-serif; 
-    color: #c3c3c3;
-}
 
 @media (min-width: 992px) {
     .controls {
