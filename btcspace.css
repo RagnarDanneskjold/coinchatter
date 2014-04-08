@@ -1,21 +1,26 @@
 body {
 	padding-top: 90px;
     padding-bottom: 90px;
+    background: #efefef;
+    color: black;   
 }
-
 
 .jumbotron h1, .jumbotron h2 {text-align: center;
 font-family: 'Roboto', sans-serif;}
+
+.jumbotron {
+    background: white;   
+    color: black;
+    padding-top: 0px;
+}
 
 h2 {font-weight: 300;}
 
 h3 {font-family: 'Roboto', sans-serif;}
 
-<<<<<<< HEAD
 button {color: black;}
 
 .content {text-align: center;}
-=======
 
 h4 {
     font-family: 'Lato';
@@ -65,8 +70,6 @@ h4 {
 $Transaction styling
 ===============
 */
->>>>>>> d60d1f7... Tided up Python package, removed dependencies.  Also some changes to contact page.
-
 
 .col-header {
     padding: 8px 10px;
@@ -106,7 +109,8 @@ $Transaction styling
 }
 
 .transactions li {
-    background: #404040;
+    background: white;
+    color: black;
 }
 
 .transactions li div {
@@ -161,7 +165,7 @@ input[type='checkbox'] {
 
 .active {
     height: 60px;
-    background: #00a379;
+    background: #33c1f3;
 }
 
 .intro {
