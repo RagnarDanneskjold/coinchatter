@@ -1,3 +1,10 @@
+/*
+=============
+$Core Structure
+=============
+*/
+
+
 body {
 	padding-top: 90px;
     padding-bottom: 90px;
@@ -12,8 +19,32 @@ font-family: 'Roboto', sans-serif;}
     background: white;   
     color: black;
     padding-top: 0px;
+    padding-bottom: 0px;
     border: 1px solid grey;
 }
+
+#QRcode {
+    height: 20rem;
+    margin: 0 auto;
+}
+
+.brand-logo {
+    max-height: 60px;
+    background: white;
+}
+
+.navbar-brand {
+    padding: 0 0 0 0;
+}
+
+
+/*
+=============
+$Typography
+=============
+*/
+
+
 
 h2 {font-weight: 300;}
 
@@ -128,24 +159,6 @@ input {
     color: black;
     outline: solid black thin;
     background: #f9f9f9;
-}
-
-::-webkit-input-placeholder {
-    color: #bababa;
-}
-
-:-moz-placeholder {
-    /* Firefox 18- */
-    color: #bababa;
-}
-
-::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #bababa;
-}
-
-:-ms-input-placeholder {
-    color: #bababa;
 }
 
 .controls {
