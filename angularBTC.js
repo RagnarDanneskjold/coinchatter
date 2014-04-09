@@ -1,16 +1,17 @@
-globalArrayOfTransactions = [];
+archiveArray = [];
 glob = '' //Global object bound to last object returned by the callBlockChainData.  Used for dev/debugging.
 tempglob = [];
 
 var coinChatterApp = angular.module('coinChatterApp', ['ngAnimate']);
 
+
 coinChatterApp.controller('coinChatterCtrl', function($scope, $http){
-    $scope.transactions = globalArrayOfTransactions;
+    $scope.transactions = archiveArray;
     var callBlockchainData = function(transactionIndex){
         var url = 'https://blockchain.info/rawtx/'+transactionIndex+'?format=json&scripts=true&cors=true'
         $http.get(url).success(function(data){
             glob = data;
-            globalArrayOfTransactions.push({"id": globalArrayOfTransactions.length,
+            archiveArray.push({"id": archiveArray.length,
                 "hex": BlockToString(data),
                 'OP_RETURN' : hasOP_RETURN(data),
                 "scripts": getScripts(data),
@@ -135,7 +136,8 @@ coinChatterApp.controller('coinChatterCtrl', function($scope, $http){
      function doSend(message) {
          websocket.send(message);
      }
-      $scope.loadCoinSecretsTX = function(){
+
+    $scope.loadCoinSecretsTX = function(){
        /* This fn should not be called automatically.  Instead, it should be MANUALLY RUN whenever updating
         the input from CoinSecrets.org after running the Python script.
         This creates a JSON file which should then be manually saved and uploaded to persistently store the data.
@@ -169,9 +171,100 @@ coinChatterApp.controller('coinChatterCtrl', function($scope, $http){
         ]
     $scope.reverseOrder = $scope.options[0]
 
-}); //END OF ANGULAR CONTROLLER
+}); //End of coinChatterCtrl
+
+coinChatterApp.controller('archiveCtrl', function($scope, $http){
+    /*
+    The init fn pulls the 52kb file which is a list of OP_RETURN transaction IDs.
+    Transaction IDs are called through Blockchain.info, but they have a limit of API calls, so limit to 1/sec
+    */
+    var txID = []; //The return of the archiveInit, an array.  Must be assigned asychronously.
+    var index = 0; //of txID
+    var archiveArray = []; //The output array, basically a blockchain.info call on each of the entries in txID. 
+    $scope.transactions = archiveArray;
+    $scope.archiveInit = function(){
+        var url = 'http://acoard.com/projects/work/scraper/tx.txt'
+        $http.get(url).success(function(data){
+            txID = data.split('\n');
+            glob = txID;
+        });
+    }
+
+    $scope.loadNext = function(){
+        var url = 'https://blockchain.info/rawtx/'+txID[index]+'?format=json&scripts=true&cors=true'
+        $http.get(url).success(function(data){
+            archiveArray.push({"id": archiveArray.length,
+                "hex": BlockToString(data),
+                'OP_RETURN' : hasOP_RETURN(data),
+                "scripts": getScripts(data),
+                "data": data,
+                'BTC': getBTC(data),
+                "url": 'https://blockchain.info/tx/'+txID[index]
+            })
+            index++;
+        });
+    }
+
+    // This code is duplicated from the previous controller.
+    //I realize this is bad practice, and I *will* fix this - but John wants a launch today so that's my priority.
+    function getBTC(transaction){
+        //Only looks at output script
+        var btcAmount = 0;
+        for (var i = 0; i < transaction["out"].length; i++){ //iterate over each output script
+            btcAmount += transaction['out'][i]['value'];  //value is in Satoshi. 
+        }
+        btcAmount = btcAmount / 100000000; //100,000,000 Satoshi = 1 BTC. 
+        return btcAmount;
+    }
+
+    function getScripts(transaction){
+        //Returns an array of all the output scripts.
+        var arr = [];
+        for (var i = 0; i < transaction["out"].length; i++){ //iterate over each output script
+            arr.push(transaction["out"][i]['script'])
+        }
+        return arr;
+    }
+
+    function BlockToString(response){
+        /* This function is wrong.  It looks at only the last output script and returns that. 
+        CoinSecrets looks only at scripts that have OP_RETURN, regardless of whether they are last or not.
+        */
+        var lastIndex = response['out'].length - 1
+        return hex2a(response["out"][lastIndex]["script"]);
+    }
+
+    function hex2a(hexx) {
+        var hex = hexx.toString();//force conversion
+        var str = '';
+        for (var i = 0; i < hex.length; i += 2)
+            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+        return str;
+    }
+
+     var hasOP_RETURN = function(transaction){
+        //Checks if any output script in a transaction has an OP_RETURN
+        //Note, it takes the whole transaction, not just the string.
+        //Hex is 6a.  The next two characters indicate the length of the data, and after that comes data.
+        for (var i = 0; i < transaction["out"].length ; i++){ //iterate over each output script
+            if (transaction["out"][i]["script"].substring(0, 2) == '6a'){ //Hex value for OP_Return is '6a.'
+                return true;
+            }
+        }
+        return false;
+    }
+    //For reverse order function
+     $scope.options = [
+        {label: 'Newest on bottom', value : false},
+        {label: 'Newest on top', value: true}
+        ]
+    $scope.reverseOrder = $scope.options[0]
+
+}); //end of archiveCTRL
 // Reverses the ordering of new items
 coinChatterApp.filter('reverse', function() {
+    //Make sure that 'reverse' is being called first:
+
   return function(items, truthVal) { 
     if (truthVal.value){
         return items.slice().reverse();

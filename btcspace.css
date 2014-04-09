@@ -83,6 +83,11 @@ body > div > div.jumbotron > p.intro {
     color: black;
 }
 
+.quote  {
+ text-align: center;   
+}
+
+
 
 /*Contact Page*/
 .contact-icons {
