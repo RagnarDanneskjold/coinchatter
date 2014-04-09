@@ -2,7 +2,7 @@ archiveArray = [];
 glob = '' //Global object bound to last object returned by the callBlockChainData.  Used for dev/debugging.
 tempglob = [];
 
-var coinChatterApp = angular.module('coinChatterApp', ['ngAnimate']);
+var coinChatterApp = angular.module('coinChatterApp', ['ngAnimate', 'infinite-scroll']);
 
 
 coinChatterApp.controller('coinChatterCtrl', function($scope, $http){
@@ -173,14 +173,14 @@ coinChatterApp.controller('coinChatterCtrl', function($scope, $http){
 
 }); //End of coinChatterCtrl
 
-coinChatterApp.controller('archiveCtrl', function($scope, $http){
+coinChatterApp.controller('archiveCtrl', function($scope, $http, $window, $location, $anchorScroll){
     /*
     The init fn pulls the 52kb file which is a list of OP_RETURN transaction IDs.
     Transaction IDs are called through Blockchain.info, but they have a limit of API calls, so limit to 1/sec
     */
     var txID = []; //The return of the archiveInit, an array.  Must be assigned asychronously.
     var index = 0; //of txID
-    var archiveArray = []; //The output array, basically a blockchain.info call on each of the entries in txID. 
+    archiveArray = []; //The output array, basically a blockchain.info call on each of the entries in txID. 
     $scope.transactions = archiveArray;
     $scope.archiveInit = function(){
         var url = 'http://acoard.com/projects/work/scraper/tx.txt'
@@ -191,19 +191,33 @@ coinChatterApp.controller('archiveCtrl', function($scope, $http){
     }
 
     $scope.loadNext = function(){
-        var url = 'https://blockchain.info/rawtx/'+txID[index]+'?format=json&scripts=true&cors=true'
-        $http.get(url).success(function(data){
-            archiveArray.push({"id": archiveArray.length,
-                "hex": BlockToString(data),
-                'OP_RETURN' : hasOP_RETURN(data),
-                "scripts": getScripts(data),
-                "data": data,
-                'BTC': getBTC(data),
-                "url": 'https://blockchain.info/tx/'+txID[index]
-            })
-            index++;
-        });
+        if ($scope.disableScroll == true) {return;} //Exit out if fn is being called concurrently
+        $scope.disableScroll = true; //Stop future calls until this fn is totally processed
+        var millisecondDelay = 300;
+        setTimeout(function(){
+            var url = 'https://blockchain.info/rawtx/'+txID[index]+'?format=json&scripts=true&cors=true'
+            $http.get(url).success(function(data){
+                archiveArray.push({"id": archiveArray.length,
+                    "hex": BlockToString(data),
+                    'OP_RETURN' : hasOP_RETURN(data),
+                    "scripts": getScripts(data),
+                    "data": data,
+                    'BTC': getBTC(data),
+                    "url": 'https://blockchain.info/tx/'+txID[index]
+                })
+                index++;
+                $scope.disableScroll = false;
+            });
+        }, millisecondDelay);
     }
+
+    $scope.scrollToBottom = function(){
+        $location.hash('output');
+        $anchorScroll();
+    };
+    
+    // Used to stop tonnes of repeat requests to loadNext().
+    $scope.disableScroll = false;
 
     // This code is duplicated from the previous controller.
     //I realize this is bad practice, and I *will* fix this - but John wants a launch today so that's my priority.
@@ -263,12 +277,22 @@ coinChatterApp.controller('archiveCtrl', function($scope, $http){
 }); //end of archiveCTRL
 // Reverses the ordering of new items
 coinChatterApp.filter('reverse', function() {
-    //Make sure that 'reverse' is being called first:
-
   return function(items, truthVal) { 
     if (truthVal.value){
         return items.slice().reverse();
     }
     else {return items;}
     }
+});
+
+coinChatterApp.directive("scroll", function ($window) {
+    return function(scope, element, attrs) {
+        angular.element($window).bind("scroll", function() {
+             if (this.pageYOffset >= 100) {
+                 console.log('Scrolled below header.');
+             } else {
+                 console.log('Header is in view.');
+             }
+        });
+    };
 });
