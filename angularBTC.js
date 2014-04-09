@@ -183,7 +183,7 @@ coinChatterApp.controller('archiveCtrl', function($scope, $http, $window, $locat
     archiveArray = []; //The output array, basically a blockchain.info call on each of the entries in txID. 
     $scope.transactions = archiveArray;
     $scope.archiveInit = function(){
-        var url = 'http://acoard.com/projects/work/scraper/tx.txt'
+        var url = 'tx.txt'
         $http.get(url).success(function(data){
             txID = data.split('\n');
             glob = txID;
