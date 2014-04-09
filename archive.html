@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="coinChatterApp">
+	<head>
+		<meta charset="utf-8">
+		<title>Coin Chatter - OP_Return Bitcoin Blockchain Meta Data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.3/angular.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.3/angular-animate.js"></script>
+    <script src="angularBTC.js"></script>
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="non-responsive.css" rel='stylesheet' type='text/css'> <!-- This is to stop the navbar from collapsing on mobile.  Not fully working yet. -->
+    <link href="btcspace.css" rel="stylesheet" type="text/css">
+    <link href="animations.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,100italic' rel='stylesheet' type='text/css'>
+	</head>
+<body ng-controller="archiveCtrl">
+  <div class="container">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src='img/Final.png' alt='Coin Chatter' class='brand-logo'></a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="archive.html">OP_RETURN archive</a></li>
+            <li class="active"><a href="#">Controls:</a></li>
+            <li ng-show='!ticker' ng-click='liveUpdate()'><a href=""><i class="fa fa-play-circle"></i> Start Ticker</a></li>
+            <li ng-show="ticker" ng-click='stopUpdate()' class='active'><a href=""> <i class="fa fa-stop"></i>Stop Ticker</a></li>
+            
+          </ul>
+          <ul class='nav navbar-nav pull-right'>
+            <li class='contact-us'><a href='contact.html'>Contact Us</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="jumbotron">
+      <h2>Our OP_RETURN archive</h2>
+      <p class="intro">You might have spent some time on our front page and after filtering for OP_RETURN transactions thought that not much has been said with OP_RETURN.  You'd be wrong.  People might not be using it right this second, but a lot has been said with OP_RETURN.  Out front page is about what people are saying with OP_RETURN this second, and our archive is about what has been said.</p> 
+      <p class='quote'><em>The conversation is just starting</em></p>
+      <p class="donations">Donatations appreciated: 1LDxWVyq3JU1vfeNZzMYFzBGAvFaZqXBBc <img src='img/QRaddress.jpg' alt='Bitcoin Address via QR code.' class='img-responsive' id='QRcode'></p>
+    </div>
+    <div class="content" ng-init="archiveInit()">
+      <div class="row">
+        <div class="controls col-md-2 col-md-offset-5 col-s-3">  
+          <h3>Filters</h3> 
+          Search all fields: <input type="text" name="filterText" ng-model="filterText" placeholder="Filter Text"><br>
+          <input type="checkbox" ng-model='filterOP_RETURN.OP_RETURN'>Display OP_RETURN transactions only</input><br>
+          <select ng-model='reverseOrder' ng-options="opt as opt.label for opt in options"></select>
+          <button ng-click="loadNext()">Load next</button>
+      </div>
+       <div class='col-md-4 col-md-offset-1 explanation'>
+          <p>Text entered will match text in <em>any</em> field.</p>
+          <p>Checkbox restricts entries to those containing the OP_RETURN command.</p>
+        </div>
+          <div class="col-header">
+              <div>ID</div>
+              <div class="metadata">Metadata</div>
+          </div>
+        </div>
+        <ul class="transactions">
+          <li ng-repeat="transaction in transactions | reverse:reverseOrder | filter:filterText | filter:filterOP_RETURN" class="animate-repeat">
+            <section>
+              <div class="transaction-ID"> 
+                <p>Hash: <a target="_blank" href='{{transaction["url"]}}'>{{transaction['data']['hash']}}</a></p>
+                 <p>Value (BTC): {{ transaction['BTC'] }}</p>
+              </div>
+              <div class="transaction-info">
+                <p>OP_RETURN: {{transaction['OP_RETURN']}}</p>
+                <p ng-if="transaction['OP_RETURN']">Meta-Data (HEX): {{transaction['hex']}}</p>
+                <p>Relaying IP: {{transaction.data.relayed_by}}</p>
+                <!-- <p>Scripts:</p><p ng-repeat='script in transaction.scripts'>{{script}}</p> -->
+              </div>
+            </section>
+          </li>
+        </ul> 
+    </div>
+    <div id="output"></div>  
+  </div>
+</body>
+</html>
