@@ -30,13 +30,25 @@ font-family: 'Roboto', sans-serif;}
 
 .brand-logo {
     max-height: 60px;
-    background: white;
 }
 
 .navbar-brand {
     padding: 0 0 0 0;
 }
 
+
+.control {
+    border: 2px solid #2e4b87;
+    border-radius: 5px;
+    margin-top: 2px;
+ 
+}
+
+.control:hover, .control a:hover {
+    background: #2e4b87 !important;
+    color: white !important;
+    
+}
 
 /*
 =============
