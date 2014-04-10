@@ -194,6 +194,20 @@ input[type='checkbox'] {
     margin-top: 20px;
 }
 
+label {
+ display: inline;   
+}
+
+input[type="checkbox"] + label {
+    text-decoration: line-through;
+}
+
+input[type="checkbox"]:checked + label {
+color: black;
+text-decoration: none;
+}
+
+
 .active {
     height: 60px;
     background: #33c1f3;

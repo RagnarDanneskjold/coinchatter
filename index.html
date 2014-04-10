@@ -52,14 +52,14 @@
     </div>
     <div class="content" ng-init="init()">
       <div class="row">
-        <div class="controls col-md-2 col-md-offset-5 col-s-3">  
-          <h3>Filters</h3> 
+        <h3>Filters</h3>
+        <div class="controls col-lg-3 col-lg-offset-5 col-s-3 col-md-3 col-md-offset-5">  
           Search all fields: <input type="text" name="filterText" ng-model="filterText" placeholder="Filter Text"><br>
-          <input type="checkbox" ng-model='filterOP_RETURN.OP_RETURN'>Display OP_RETURN transactions only</input><br>
+          <input type="checkbox" ng-model='filterOP_RETURN.OP_RETURN'></input><label>Display OP_RETURN transactions only<label><br>
           <select ng-model='reverseOrder' ng-options="opt as opt.label for opt in options">
           </select>
       </div>
-       <div class='col-md-4 col-md-offset-1 explanation'>
+       <div class='col-md-4  col-lg-4 explanation'>
           <p>Text entered will match text in <em>any</em> field.</p>
           <p>Checkbox restricts entries to those containing the OP_RETURN command.</p>
         </div>
@@ -87,5 +87,7 @@
     </div>
     <div id="output"></div>  
   </div>
+</div>
+
 </body>
 </html>
