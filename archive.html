@@ -34,7 +34,7 @@
           <ul class="nav navbar-nav">
             <li><a href="archive.html">OP_RETURN archive</a></li>
             <li class="active"><a href="#">Controls:</a></li>
-            <li ng-click='scrollToBottom()' class='control'><a href=""><i class="fa fa-play-circle"></i>Scroll Down</a></li>            
+            <li ng-click='scrollToBottom()' class='nav-control'><a href=""><i class="fa fa-play-circle"></i>Scroll Down</a></li>            
           </ul>
           <ul class='nav navbar-nav pull-right'>
             <li class='contact-us'><a href='contact.html'>Contact Us</a></li>
@@ -53,7 +53,7 @@
         <h3>Filters</h3>
         <div class="controls col-lg-3 col-lg-offset-5 col-s-3 col-md-3 col-md-offset-5">  
           Search all fields: <input type="text" name="filterText" ng-model="filterText" placeholder="Filter Text"><br>
-          <input type="checkbox" ng-model='filterOP_RETURN.OP_RETURN'></input><label>Display OP_RETURN transactions only<label><br>
+          <input type="checkbox" ng-model='filterOP_RETURN.OP_RETURN' ng-init="filterOP_RETURN.OP_RETURN =true"></input><label>Display OP_RETURN transactions only<label><br>
           <select ng-model='reverseOrder' ng-options="opt as opt.label for opt in options">
           </select>
       </div>
@@ -77,7 +77,6 @@
                 <p>OP_RETURN: {{transaction['OP_RETURN']}}</p>
                 <p ng-if="transaction['OP_RETURN']">Meta-Data (HEX): {{transaction['hex']}}</p>
                 <p>Relaying IP: {{transaction.data.relayed_by}}</p>
-                <!-- <p>Scripts:</p><p ng-repeat='script in transaction.scripts'>{{script}}</p> -->
               </div>
             </section>
           </li>

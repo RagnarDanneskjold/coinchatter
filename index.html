@@ -34,8 +34,8 @@
           <ul class="nav navbar-nav">
             <li><a href="archive.html">OP_RETURN archive</a></li>
             <li class="active"><a href="#">Controls:</a></li>
-            <li ng-show='!ticker' ng-click='liveUpdate()' class='control'><a href=""><i class="fa fa-play-circle"></i> Start Ticker</a></li>
-            <li ng-show="ticker" ng-click='stopUpdate()' class='active control'><a href=""> <i class="fa fa-stop"></i>Stop Ticker</a></li>
+            <li ng-show='!ticker' ng-click='liveUpdate()' class='nav-control'><a href=""><i class="fa fa-play-circle"></i> Start Ticker</a></li>
+            <li ng-show="ticker" ng-click='stopUpdate()' class='active nav-control'><a href=""> <i class="fa fa-stop"></i>Stop Ticker</a></li>
           </ul>
           <ul class='nav navbar-nav pull-right'>
             <li class='contact-us'><a href='contact.html'>Contact Us</a></li>
@@ -79,7 +79,6 @@
                 <p>OP_RETURN: {{transaction['OP_RETURN']}}</p>
                 <p ng-if="transaction['OP_RETURN']">Meta-Data (HEX): {{transaction['hex']}}</p>
                 <p>Relaying IP: {{transaction.data.relayed_by}}</p>
-                <!-- <p>Scripts:</p><p ng-repeat='script in transaction.scripts'>{{script}}</p> -->
               </div>
             </section>
           </li>
@@ -88,6 +87,5 @@
     <div id="output"></div>  
   </div>
 </div>
-
 </body>
 </html>

@@ -1,7 +1,7 @@
 /*
-=============
+=============================
 $Core Structure
-=============
+=============================
 */
 
 
@@ -10,6 +10,8 @@ body {
     padding-bottom: 90px;
     background: #f6f6f6;
     color: black;   
+    background-image:url('img/paper_fibers_@2X.png');
+    background-repeat: repeat;
 }
 
 .jumbotron h1, .jumbotron h2 {text-align: center;
@@ -21,6 +23,8 @@ font-family: 'Roboto', sans-serif;}
     padding-top: 0px;
     padding-bottom: 0px;
     border: 1px solid grey;
+    border-radius: 20px !important;
+    border-color: #2e4b87;
 }
 
 #QRcode {
@@ -36,24 +40,30 @@ font-family: 'Roboto', sans-serif;}
     padding: 0 0 0 0;
 }
 
+/*
+==============
+$Navbar       
+==============
+*/
 
-.control {
+
+.nav-control {
     border: 2px solid #2e4b87;
     border-radius: 5px;
     margin-top: 2px;
  
 }
 
-.control:hover, .control a:hover {
+.nav-control:hover, .nav-control a:hover {
     background: #2e4b87 !important;
     color: white !important;
     
 }
 
 /*
-=============
+============================
 $Typography
-=============
+============================
 */
 
 
@@ -101,7 +111,11 @@ body > div > div.jumbotron > p.intro {
 
 
 
-/*Contact Page*/
+/*
+============================
+$Contact Page
+============================
+*/
 .contact-icons {
     font-size: 5rem;
     display: block;
@@ -116,9 +130,9 @@ body > div > div.jumbotron > p.intro {
 
 
 /*
-===============
+============================
 $Transaction styling
-===============
+============================
 */
 
 .col-header {
