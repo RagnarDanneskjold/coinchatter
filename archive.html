@@ -15,6 +15,16 @@
     <link href="animations.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,100italic' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50449747-1', 'coinchatter.info');
+  ga('send', 'pageview');
+
+</script>
 	</head>
 <body ng-controller="archiveCtrl">
   <div class="container">
@@ -53,8 +63,6 @@
         <h3>Filters</h3>
         <div class="controls col-lg-3 col-lg-offset-5 col-s-3 col-md-3 col-md-offset-5">  
           Search all fields: <input type="text" name="filterText" ng-model="filterText" placeholder="Filter Text"><br>
-          <select ng-model='reverseOrder' ng-options="opt as opt.label for opt in options">
-          </select>
       </div>
        <div class='col-md-4  col-lg-4 explanation'>
           <p>Text entered will match text in <em>any</em> field.</p>

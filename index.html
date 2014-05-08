@@ -15,6 +15,16 @@
     <link href="animations.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,100italic' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50449747-1', 'coinchatter.info');
+  ga('send', 'pageview');
+
+</script>
 	</head>
 <body ng-controller="coinChatterCtrl">
   <div class="container">
@@ -34,19 +44,19 @@
           <ul class="nav navbar-nav">
             <li><a href="archive.html">OP_RETURN archive</a></li>
             <li class="active"><a href="#">Controls:</a></li>
-            <li ng-show='!ticker' ng-click='liveUpdate()' class='nav-control'><a href=""><i class="fa fa-play-circle"></i> Start Ticker</a></li>
+            <li ng-show='!ticker' ng-click='liveUpdate()' class='nav-control'><a href="#tx-wrapper"><i class="fa fa-play-circle"></i> Start Ticker</a></li>
             <li ng-show="ticker" ng-click='stopUpdate()' class='active nav-control'><a href=""> <i class="fa fa-stop"></i>Stop Ticker</a></li>
           </ul>
           <ul class='nav navbar-nav pull-right'>
+            <li><a href="/forum/">Forum</a></li>
             <li class='contact-us'><a href='contact.html'>Contact Us</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <div class="jumbotron">
-      <img src='img/oval.png' alt='Coin Chatter' class='img-responsive'>
       <h2>A BitCoin ticker with an eye to <b>metadata</b></h2>
-      <p class="intro">In Bitcoin 0.9 OP_RETURN became an accepted part of Bitcoin transactions, allowing 80 bytes of data to be used for... whatever. OP_RETURN is still being implemented and the effects are yet to be seen. This site isn't any old Bitcoin transaction ticker, it has an eye to the metadata and a pulse on Bitcoin's future.</p>
+      <p class="intro">In Bitcoin 0.9 OP_RETURN became an accepted part of Bitcoin transactions, allowing 40 bytes of data to be used for... whatever. OP_RETURN is still being implemented and the effects are yet to be seen. This site isn't any old Bitcoin transaction ticker, it has an eye to the metadata and a pulse on Bitcoin's future.  Just like Bitcoin, our code is open.  <a target="_blank" href="https://github.com/Blackcomb/coinchatter">You can take a look on GitHub. <i class="fa fa-github"></i></a></p>
       <p class="readmore"><a target="_blank" href='https://bitcoinfoundation.org/blog/?p=290'>Read more about OP_RETURN.</a></p>
       <p class="donations">Donatations appreciated: 1LDxWVyq3JU1vfeNZzMYFzBGAvFaZqXBBc <img src='img/QRaddress.jpg' alt='Bitcoin Address via QR code.' class='img-responsive' id='QRcode'></p>
     </div>
@@ -67,22 +77,24 @@
               <div>ID</div>
               <div class="metadata">Metadata</div>
           </div>
+        <div id='tx-wrapper'>
+          <ul class="transactions">
+            <li ng-repeat="transaction in transactions | reverse:reverseOrder | filter:filterText | filter:filterOP_RETURN" class="animate-repeat">
+              <section>
+                <div class="transaction-ID"> 
+                  <p>Hash: <a target="_blank" href='{{transaction["url"]}}'>{{transaction['data']['hash']}}</a></p>
+                   <p>Value (BTC): {{ transaction['BTC'] }}</p>
+                </div>
+                <div class="transaction-info">
+                  <p>OP_RETURN: {{transaction['OP_RETURN']}}</p>
+                  <p ng-if="transaction['OP_RETURN']">Meta-Data (HEX): {{transaction['hex']}}</p>
+                  <p>Relaying IP: {{transaction.data.relayed_by}}</p>
+                </div>
+              </section>
+            </li>
+          </ul> 
         </div>
-        <ul class="transactions">
-          <li ng-repeat="transaction in transactions | reverse:reverseOrder | filter:filterText | filter:filterOP_RETURN" class="animate-repeat">
-            <section>
-              <div class="transaction-ID"> 
-                <p>Hash: <a target="_blank" href='{{transaction["url"]}}'>{{transaction['data']['hash']}}</a></p>
-                 <p>Value (BTC): {{ transaction['BTC'] }}</p>
-              </div>
-              <div class="transaction-info">
-                <p>OP_RETURN: {{transaction['OP_RETURN']}}</p>
-                <p ng-if="transaction['OP_RETURN']">Meta-Data (HEX): {{transaction['hex']}}</p>
-                <p>Relaying IP: {{transaction.data.relayed_by}}</p>
-              </div>
-            </section>
-          </li>
-        </ul> 
+        <div ng-show='ticker' id='loading'><img src='img/loading.gif'></div>
     </div>
     <div id="output"></div>  
   </div>

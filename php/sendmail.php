@@ -4,7 +4,7 @@
         $email = $_POST['email'];
         $message = $_POST['message'];
         $from = 'From: CoinChatter contact form';
-        $to = 'contact@coinchatter.info';
+        $to = 'coinchatter@gmail.com';
         $subject = 'Contact Form Submission?';
 
         $body = "From: $name\n E-Mail: $email\n Message:\n $message";
